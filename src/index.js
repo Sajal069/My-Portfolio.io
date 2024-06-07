@@ -50,30 +50,29 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-document.addEventListener("DOMContentLoaded", function () {
-  const projectsSection = document.getElementById("projects");
-  const projectElements = document.querySelectorAll(".project");
+document.addEventListener("DOMContentLoaded", function() {
+  const projectsSection = document.getElementById('projects');
+  const projectElements = document.querySelectorAll('.project');
 
   function elementInViewport(el) {
     const rect = el.getBoundingClientRect();
     return (
-      rect.top >= 0 &&
-      rect.left >= 0 &&
-      rect.bottom <=
-        (window.innerHeight || document.documentElement.clientHeight) &&
-      rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+      rect.top <= (window.innerHeight || document.documentElement.clientHeight) &&
+      rect.bottom >= 0
     );
   }
 
   function handleScroll() {
     if (elementInViewport(projectsSection)) {
-      projectElements.forEach((el) => {
-        el.classList.add("animate");
+      projectElements.forEach((el, index) => {
+        setTimeout(() => {
+          el.classList.add('animate');
+        }, index * 300); // Delay each animation by 300ms
       });
-      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener('scroll', handleScroll);
     }
   }
 
-  window.addEventListener("scroll", handleScroll);
-  handleScroll();
+  window.addEventListener('scroll', handleScroll);
+  handleScroll(); // Check if already in view on page load
 });
